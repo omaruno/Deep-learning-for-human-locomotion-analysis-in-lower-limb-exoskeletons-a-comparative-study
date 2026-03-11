@@ -1,130 +1,115 @@
-Human-Locomotion-Identification
+# Deep Learning for Human Locomotion Analysis in Lower-Limb Exoskeletons
 
 Official implementation of the paper:
 
-Deep Learning for Human Locomotion Analysis in Lower-Limb Exoskeletons: A Comparative Study
-O. Coser et al., Frontiers in Computer Science, 2025.
-DOI: 10.3389/fcomp.2025.1597143
+> **Deep Learning for Human Locomotion Analysis in Lower-Limb Exoskeletons: A Comparative Study**
+>
+> O. Coser, C. Tamantini, M. Tortora, L. Furia, R. Sicilia, L. Zollo, P. Soda
+>
+> *Frontiers in Computer Science*, 2025 — [DOI: 10.3389/fcomp.2025.1597143](https://doi.org/10.3389/fcomp.2025.1597143)
 
-📌 Overview
+---
 
-This repository provides a deep learning framework for:
+## Overview
 
-Terrain classification (5 classes):
+This repository provides a deep learning framework for real-time locomotion analysis in lower-limb exoskeletons, addressing two tasks:
 
-  Level Ground (LG)
-  
-  Ramp Ascent (RA)
-  
-  Ramp Descent (RD)
-  
-  Stair Ascent (SA)
-  
-  Stair Descent (SD)
+**Terrain classification** (5 classes):
+- Level Ground (LG)
+- Ramp Ascent (RA)
+- Ramp Descent (RD)
+- Stair Ascent (SA)
+- Stair Descent (SD)
 
-Locomotion parameter estimation:
+**Locomotion parameter estimation:**
+- Ramp slope regression
+- Stair height regression
 
-Ramp slope regression
+### Key Results
 
-Stair height regression
+| Task | Metric | Value |
+|------|--------|-------|
+| Terrain classification | Accuracy | 0.94 ± 0.04 |
+| Ramp slope regression | MAE | ~1.95° |
+| Stair height regression | MAE | ~15.65 mm |
+| Inference time | Latency | ~1–2 ms |
 
-The system is designed for real-time lower-limb exoskeleton control, achieving:
+---
 
-  ✅ Classification Accuracy: 0.94 ± 0.04
-  
-  ✅ Ramp Slope MAE: ~1.95°
-  
-  ✅ Stair Height MAE: ~15.65 mm
-  
-  ✅ Inference Time: ~1–2 ms
-
-🧠 Implemented Architectures
+## Implemented Architectures
 
 We provide implementations and comparisons of eight state-of-the-art time-series deep learning models:
 
-  CNN
-  
-  LSTM
-  
-  GRU
-  
-  CNN-LSTM
-  
-  LSTM-CNN
-  
-  XceptionTime
-  
-  Time Series Transformer (TST)
-  
-  Mamba (State Space Model)
+| Model | Type |
+|-------|------|
+| CNN | Convolutional |
+| LSTM | Recurrent |
+| GRU | Recurrent |
+| CNN-LSTM | Hybrid |
+| LSTM-CNN | Hybrid |
+| XceptionTime | Convolutional (depthwise separable) |
+| Time Series Transformer (TST) | Attention-based |
+| Mamba | State Space Model |
 
-🏆 Best Performing Models
+### Best Performing Models
 
-LSTM → Terrain classification
+| Task | Best Model |
+|------|------------|
+| Terrain classification | LSTM |
+| Ramp slope regression | LSTM |
+| Stair height regression | CNN-LSTM |
 
-LSTM → Ramp slope regression
+---
 
-CNN-LSTM → Stair height regression
+## Dataset
 
-📊 Dataset
+Experiments are conducted using the **CAMARGO 2021** dataset:
 
-Experiments are conducted using the CAMARGO 2021 dataset, which includes:
-  
-  21 subjects
-  
-  4 IMUs (trunk, thigh, shank, foot)
-  
-  11 EMG sensors
-  
-  Multiple ramp inclinations
-  
-  Multiple stair heights
+- 21 subjects
+- 4 IMUs (trunk, thigh, shank, foot)
+- 11 EMG sensors
+- Multiple ramp inclinations
+- Multiple stair heights
 
-The study demonstrates that an IMU-only setup (foot, shank, thigh) matches or outperforms IMU+EMG configurations, enabling a lightweight and cost-efficient wearable system.
+The study demonstrates that an **IMU-only setup (foot, shank, thigh)** matches or outperforms IMU+EMG configurations, enabling a lightweight and cost-efficient wearable system.
 
-🔍 Explainable AI (SHAP)
+---
 
-This repository includes SHAP-based feature importance analysis to:
+## Explainable AI (SHAP)
 
-  Identify the most informative sensors
-  
-  Perform sensor ablation studies
-  
-  Determine a minimal sensor configuration
+This repository includes SHAP-based feature importance analysis to identify the most informative sensors and determine a minimal sensor configuration.
 
-Key findings:
+**Key findings:**
+- **Foot IMU** (gyroscope Y-axis) is the most informative feature
+- **Trunk IMU** can be removed without performance loss
+- **Three IMUs** (foot, shank, thigh) are sufficient for full performance
 
-  🥇 Foot IMU (gyroscope Y-axis) is the most informative feature
-  
-  🗑️ Trunk IMU can be removed without performance loss
-  
-  ⚙️ Three IMUs (foot, shank, thigh) are sufficient
-  
-  🧪 Experimental Setup
+---
 
-Leave-One-Subject-Out (LOSO) cross-validation
+## Experimental Setup
 
-100 ms non-overlapping windows
+- **Validation:** Leave-One-Subject-Out (LOSO) cross-validation
+- **Window size:** 100 ms non-overlapping windows
+- **Preprocessing:** Standardized across all subjects
+- **Training:** Early stopping to prevent overfitting
+- **Statistical testing:** Wilcoxon signed-rank test with Bonferroni correction
 
-Standardized preprocessing
+---
 
-Early stopping
+## Applications
 
-Statistical validation (Wilcoxon signed-rank + Bonferroni correction)
+- Adaptive control for lower-limb exoskeletons
+- Assistive and rehabilitation robotics
+- Terrain-aware locomotion systems
+- Gait analysis research
 
-🎯 Applications
+---
 
-Adaptive control for lower-limb exoskeletons
+## Citation
 
-Assistive robotics
+If you use this code in your research, please cite:
 
-Rehabilitation robotics
-
-Terrain-aware locomotion systems
-
-Gait analysis research
-
-Please cite at:
+```bibtex
 @article{coser2025deep,
   title={Deep learning for human locomotion analysis in lower-limb exoskeletons: a comparative study},
   author={Coser, Omar and Tamantini, Christian and Tortora, Matteo and Furia, Leonardo and Sicilia, Rosa and Zollo, Loredana and Soda, Paolo},
@@ -134,3 +119,11 @@ Please cite at:
   year={2025},
   publisher={Frontiers Media SA}
 }
+```
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
