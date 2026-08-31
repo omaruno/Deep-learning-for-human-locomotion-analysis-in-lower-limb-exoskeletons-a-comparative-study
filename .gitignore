@@ -1,10 +1,12 @@
 # Original notebooks, superseded by the locomotion/ package. Kept locally for
 # reference; they remain available in the git history of this repository.
-legacy/
+/legacy/
 
-# Data and experiment outputs
-data/
-outputs/
+# Datasets and experiment outputs. These patterns are anchored with a leading
+# slash so they match only the top-level folders -- an unanchored 'data/' would
+# also exclude the locomotion/data package.
+/data/
+/outputs/
 *.npz
 *.pt
 *.h5
