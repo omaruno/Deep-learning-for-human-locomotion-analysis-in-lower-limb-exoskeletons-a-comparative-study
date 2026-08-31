@@ -1,0 +1,23 @@
+# Ramp-slope regression (degrees), IMU only.
+# python main.py --config configs/paper_ramp_slope.yaml
+
+data_dir: data/processed
+modality: imu
+task: ramp_slope
+window_ms: 100
+sampling_rate: 1000
+
+model: lstm
+model_size: base
+dropout: 0.2
+
+epochs: 100
+batch_size: 64
+learning_rate: 0.001
+patience: 10
+
+evaluation: loso
+shap: false
+device: auto
+seed: 42
+output_dir: outputs

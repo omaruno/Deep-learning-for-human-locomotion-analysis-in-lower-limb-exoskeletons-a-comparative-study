@@ -1,0 +1,28 @@
+# SHAP sensor-importance study: which IMUs can be removed?
+# python main.py --config configs/shap_sensor_selection.yaml
+
+data_dir: data/processed
+modality: multimodal     # explain IMU and EMG together
+task: classification
+window_ms: 100
+sampling_rate: 1000
+
+model: lstm
+model_size: base
+
+epochs: 100
+batch_size: 64
+patience: 10
+
+evaluation: loso
+max_folds: 3             # SHAP is expensive; explain a few folds
+
+shap: true
+shap_background: 200
+shap_samples: 500
+shap_folds: 3
+
+device: auto
+seed: 42
+output_dir: outputs
+run_name: shap_sensor_selection

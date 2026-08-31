@@ -1,0 +1,25 @@
+# Terrain classification, IMU only -- the main experiment of the paper.
+# Reproduce with:  python main.py --config configs/paper_classification.yaml
+
+data_dir: data/processed
+modality: imu
+task: classification
+window_ms: 100          # 100 ms non-overlapping windows
+sampling_rate: 1000
+
+model: lstm             # best terrain-classification model in the paper
+model_size: base        # 128 hidden units / 128-unit dense head
+dropout: 0.2
+
+epochs: 100
+batch_size: 64
+learning_rate: 0.001
+patience: 10
+val_fraction: 0.2
+
+evaluation: loso        # leave-one-subject-out over all 21 subjects
+shap: false
+
+device: auto
+seed: 42
+output_dir: outputs

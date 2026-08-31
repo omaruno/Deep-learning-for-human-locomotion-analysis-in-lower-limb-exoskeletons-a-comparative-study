@@ -1,0 +1,23 @@
+# Stair-height regression (millimetres), IMU only.
+# python main.py --config configs/paper_stair_height.yaml
+
+data_dir: data/processed
+modality: imu
+task: stair_height
+window_ms: 100
+sampling_rate: 1000
+
+model: cnn_lstm          # best stair-height model in the paper
+model_size: base
+dropout: 0.2
+
+epochs: 100
+batch_size: 64
+learning_rate: 0.001
+patience: 10
+
+evaluation: loso
+shap: false
+device: auto
+seed: 42
+output_dir: outputs
